@@ -44,7 +44,7 @@ export const login = async (req, res) => {
     if (!user) {
       return res.status(404).json({ message: "User is not found" });
     }
-    let isMatch = await bcrypt.compare(password, user.password);
+    let isMatch = bcrypt.compare(password, user.password);
     if (!isMatch) {
       return res.status(400).json({ message: "Incorrect Password" });
     }
@@ -56,7 +56,7 @@ export const login = async (req, res) => {
       sameSite: "Strict",
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
-    return res.status(201).json({ message: "login successful" });
+    return res.status(201).json(user);
   } catch (error) {
     console.log("login error");
     return res.status(500).json({ message: `login error ${error}` });

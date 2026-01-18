@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useState, useContext } from "react";
 import logo from "../assets/short_logo.png";
 import { useNavigate } from "react-router-dom";
 import google from "../assets/google.png";
@@ -7,32 +7,32 @@ import { IoEyeOff } from "react-icons/io5";
 import { authDataContext } from "../context/AuthContext";
 import axios from "axios";
 
-const Login = () => {
-  let navigate = useNavigate();
+function Registration() {
   const [show, setshow] = useState(false);
-
-  let [email, setEmail] = useState("");
-  let [password, setPassword] = useState("");
-
   let { serverUrl } = useContext(authDataContext);
+  let navigate = useNavigate();
 
-  const handleLogin = async (e) => {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSignup = async (e) => {
     e.preventDefault();
-    // Add login logic here, e.g., API call to authenticate user
-
-    // console.log("serverUrl:", serverUrl);
     try {
-      let result = await axios.post(
-        serverUrl + "/api/auth/login",
+      const result = await axios.post(
+        serverUrl + "/api/auth/registration",
         {
+          name,
           email,
           password,
         },
         { withCredentials: true },
       );
-      console.log("Login successful:", result.data);
+      console.log("Registration successful:", result.data);
+      // Optionally, navigate to another page or show a success message
     } catch (error) {
-      console.error("Login failed:", error);
+      console.error("Registration failed:", error);
+      // Optionally, show an error message to the user
     }
   };
 
@@ -49,20 +49,20 @@ const Login = () => {
         </div>
       </div>
       <div className="w-full h-15 flex items-center justify-center flex-col gap-2.5 ">
-        <span className="text-[25px] font-semibold ">Login Page</span>
+        <span className="text-[25px] font-semibold ">Registration Page</span>
         <span className="text-[16px]">
           Welcome to LiveStockHub, place your order
         </span>
       </div>
       <div className="max-w-150 w-[90%] h-110 bg-[#00000025] border-[#9696963] backdrop:-blur-2xl rounded-lg shadow-lg flex items-center justify-center">
         <form
-          onSubmit={handleLogin}
+          onSubmit={handleSignup}
           action=""
           className="w-[90%] h-[90%] flex flex-col items-center justify-start gap-4"
         >
           <div className="w-[90%] h-12 bg-[#42656cae] rounded-lg flex items-center justify-center gap-2.5 py-5 cursor-pointer">
             <img src={google} alt="" className="w-5 rounded-full" />
-            Login with Google
+            Registration with Google
           </div>
 
           <div className="w-full h-5 flex items-center justify-center gap-2.5 ">
@@ -71,6 +71,14 @@ const Login = () => {
           </div>
 
           <div className="w-[90%] h-100 flex flex-col items-center justify-center gap-3 relative">
+            <input
+              type="text"
+              className="w-full h-12 border-2 border-[#96969635] backdrop:-blur-sm rounded-lg shadow-lg px-5 bg-transparent placeholder-[#ffffffc7] font-semibold"
+              placeholder="Username"
+              required
+              onChange={(e) => setName(e.target.value)}
+              value={name}
+            />
             <input
               type="text"
               className="w-full h-12 border-2 border-[#96969635] backdrop:-blur-sm rounded-lg shadow-lg px-5 bg-transparent placeholder-[#ffffffc7] font-semibold"
@@ -89,26 +97,26 @@ const Login = () => {
             />
             {show && (
               <IoMdEye
-                className="w-5 h-5 absolute cursor-pointer right-[5%] bottom-[57%]"
+                className="w-5 h-5 absolute cursor-pointer right-[5%]"
                 onClick={() => setshow((prev) => !prev)}
               />
             )}
             {!show && (
               <IoEyeOff
-                className="w-5 h-5 absolute cursor-pointer right-[5%] bottom-[57%]"
+                className="w-5 h-5 absolute cursor-pointer right-[5%]"
                 onClick={() => setshow((prev) => !prev)}
               />
             )}
             <button className="w-full h-12 bg-[#6060f5] rounded-lg flex items-center justify-center mt-5 text-[17px] font-semibold">
-              Login
+              Create Account
             </button>
             <p className="flex gap-2.5 ">
-              You haven't any account
+              You have any account ?
               <span
                 className="text-[#5555f6cf] text-17px font-semibold cursor-pointer"
-                onClick={() => navigate("/signup")}
+                onClick={() => navigate("/login")}
               >
-                create new account
+                Login
               </span>
             </p>
           </div>
@@ -116,6 +124,6 @@ const Login = () => {
       </div>
     </div>
   );
-};
+}
 
-export default Login;
+export default Registration;
