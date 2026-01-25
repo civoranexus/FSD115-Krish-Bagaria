@@ -6,6 +6,8 @@ import { IoMdEye } from "react-icons/io";
 import { IoEyeOff } from "react-icons/io5";
 import { authDataContext } from "../context/AuthContext";
 import axios from "axios";
+import { signInWithPopup } from "firebase/auth";
+import { auth, provider } from "../../utils/Firebase.js";
 
 function Registration() {
   const [show, setshow] = useState(false);
@@ -36,6 +38,24 @@ function Registration() {
     }
   };
 
+  const googleSignup = async () => {
+    try {
+      const response = await signInWithPopup(auth, provider);
+      let user = response.user;
+      let name = user.displayName;
+      let email = user.email;
+
+      const result = await axios.post(
+        serverUrl + "/api/auth/googleLogin",
+        { name, email },
+        { withCredentials: true },
+      );
+      console.log("Google Signup successful:", result.data);
+    } catch (error) {
+      console.error("Google Signup failed:", error);
+    }
+  };
+
   return (
     <div className="w-full h-screen bg-linear-to-l from-[#141414] to-[#0c2025] text-white flex flex-col items-center justify-start">
       <div
@@ -60,7 +80,10 @@ function Registration() {
           action=""
           className="w-[90%] h-[90%] flex flex-col items-center justify-start gap-4"
         >
-          <div className="w-[90%] h-12 bg-[#42656cae] rounded-lg flex items-center justify-center gap-2.5 py-5 cursor-pointer">
+          <div
+            className="w-[90%] h-12 bg-[#42656cae] rounded-lg flex items-center justify-center gap-2.5 py-5 cursor-pointer"
+            onClick={googleSignup}
+          >
             <img src={google} alt="" className="w-5 rounded-full" />
             Registration with Google
           </div>
