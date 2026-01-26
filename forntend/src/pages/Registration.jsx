@@ -29,6 +29,9 @@ function Registration() {
           password,
         },
         { withCredentials: true },
+        console.log("Login successful:", result.data),
+        getCurrentUser(),
+        navigate("/"),
       );
       console.log("Registration successful:", result.data);
       // Optionally, navigate to another page or show a success message
@@ -49,6 +52,9 @@ function Registration() {
         serverUrl + "/api/auth/googleLogin",
         { name, email },
         { withCredentials: true },
+        console.log("Login successful:", result.data),
+        getCurrentUser(),
+        navigate("/"),
       );
       console.log("Google Signup successful:", result.data);
     } catch (error) {
