@@ -1,9 +1,7 @@
 import React from "react";
 
 const Home = () => {
-  return (
-    <div className="w-screen h-screen bg-linear-to-l from-[#141414] to-[#0c2025]"></div>
-  );
+  return <div className="text-[30px] text-[red]">Home Page</div>;
 };
 
 export default Home;
