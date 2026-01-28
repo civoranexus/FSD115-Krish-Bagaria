@@ -3,6 +3,7 @@ import Backgound from "../components/Backgound.jsx";
 import Hero from "../components/Hero.jsx";
 
 const Home = () => {
+<<<<<<< HEAD
   let heroData = [
     { text1: "30% OFF", text2: "ON ALL PREMIUM MEAT" },
     { text1: "Discover the Best of Bold Fashison", text2: "Limited Time Only" },
@@ -31,6 +32,9 @@ const Home = () => {
       </div>
     </div>
   );
+=======
+  return <div className="text-[30px] text-[red]">Home Page</div>;
+>>>>>>> 12bd2bfc70fa107cb8e2963dfc4d61ff9ac63af5
 };
 
 export default Home;
