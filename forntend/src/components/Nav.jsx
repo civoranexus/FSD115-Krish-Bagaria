@@ -3,6 +3,9 @@ import logo from "../assets/short_logo.png";
 import { IoMdSearch } from "react-icons/io";
 import { CgProfile } from "react-icons/cg";
 import { FaCartPlus } from "react-icons/fa";
+import { HiCollection } from "react-icons/hi";
+import { BiSolidContact } from "react-icons/bi";
+import { FaHome } from "react-icons/fa";
 import { userDataContext } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
 import { authDataContext } from "../context/AuthContext";
@@ -30,7 +33,7 @@ const Nav = () => {
   };
   return (
     <div className="w-screen h-17.5 bg-[#ecfafaec] z-10 fixed  flex items-center justify-between px-7.5 shadow-md shadow-black">
-      <div className="w-[30%] flex items-center justify-start gap-2.5">
+      <div className="w-[20%] lg:w-[30%] flex items-center justify-start gap-2.5">
         <img src={logo} alt="" className="w-7.5" />
         <div>
           <h1 className="text-[25px] text-[black] font-sans">LiveStockHub</h1>
@@ -39,7 +42,7 @@ const Nav = () => {
           </h1>
         </div>
       </div>
-      <div className="w-[40%] hidden md:flex">
+      <div className="w-[50%] lg:w-[40%] hidden md:flex">
         <ul className="flex items-center justify-center gap-5 text-[white]">
           <li className="text-[15px] hover:bg-slate-500 cursor-pointer bg-[#000000c9] py-2.5 px-5 rounded-2xl">
             HOME
@@ -123,6 +126,24 @@ const Nav = () => {
           </ul>
         </div>
       )}
+      <div className="w-full h-22.5 flex items-center justify-between px-5 fixed bottom-0 left-0 bg-[#191818] md:hidden text-[12px]">
+        <button className="text-[white] flex items-center justify-center flex-col gap-0.5">
+          <FaHome className="w-7 h-7 text-[white] md:hidden" />
+          Home
+        </button>
+        <button className="text-[white] flex items-center justify-center flex-col gap-0.5">
+          <HiCollection className="w-7 h-7 text-[white] md:hidden" />
+          Collection
+        </button>
+        <button className="text-[white] flex items-center justify-center flex-col gap-0.5">
+          <BiSolidContact className="w-7 h-7 text-[white] md:hidden" />
+          Contact
+        </button>
+        <button className="text-[white] flex items-center justify-center flex-col gap-0.5">
+          <FaCartPlus className="w-7 h-7 text-[white] md:hidden" />
+          Cart
+        </button>
+      </div>
     </div>
   );
 };
